@@ -9,7 +9,7 @@
     "pagination",
     "sort"
   ],
-  "main": "src/index.js",
+  "main": "dist/module/module.js",
   "types": "dist/module/module.d.ts",
   "scripts": {
     "start": "start-storybook -p 6006",
