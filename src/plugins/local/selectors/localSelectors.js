@@ -40,7 +40,11 @@ export const filteredDataSelector = createSelector(
     return data.filter(row  => {
       return Object.keys(row.toJSON())
         .some(key => {
-          return row.get(key) && row.get(key).toString().toLowerCase().indexOf(filter.toLowerCase()) > -1
+          if (typeof filter === 'string') {
+            return row.get(key) && row.get(key).toString().toLowerCase().indexOf(filter.toLowerCase()) > -1
+          }
+
+          return row.get(key) && typeof filter[key] === 'string' && row.get(key).toString().toLowerCase().indexOf(filter[key].toLowerCase()) > -1;
         })
       })
   }
