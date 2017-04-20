@@ -46,12 +46,19 @@ export const filteredDataSelector = createSelector(
       return data;
     }
 
-    const filterToLower = filter.toLowerCase();
     return data.filter(row =>
       row.keySeq()
         .some((key) => {
           const filterable = columnProperties && columnProperties.getIn([key, 'filterable']);
           if (filterable === false) {
+            return false;
+          }
+          let filterToLower;
+          if (typeof filter === 'string') {
+            filterToLower = filter.toLowerCase();
+          } else if (key in filter){
+            filterToLower = filter[key].toLowerCase();
+          } else {
             return false;
           }
           const value = row.get(key);
